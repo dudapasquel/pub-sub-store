@@ -30,3 +30,23 @@ Obs: Este é um exemplo de como pode ser criado o serviço de report, sinta-se a
     }
 }
 ```
+
+## Executando o serviço de _reports_
+
+Primeiro, deve-se ajustar o arquivo .env com as configurações necessárias. Os passos anteriores também devem ter sido executados para que as filas sejam devidamente configuradas.
+
+A aplicação, assim como o serviço `orders`, pode ser inicializada via Docker, por meio do seguinte comando (sempre chamado na raiz do projeto):
+
+```
+docker-compose up -d --build report-service
+```
+
+Ou o comando abaixo, caso esteja utilizando a versão 2 do Docker Compose
+
+```
+docker compose up -d --build report-service
+```
+
+Com o serviço executando, as mensagens da fila `report` serão consumidas e processadas. Novas vendas geram um log com dados básicos sobre a venda. Ao fim do processamento da mensagem, um relatório consolidado com todas as vendas de produtos feitas enquanto o serviço estava disponível é exibido, conforme a imagem abaixo.
+
+![report_log](./images/report.png)
